@@ -28,24 +28,24 @@
 	  */
 	  /* 运行时依赖 */
 	  "dependencies": {
-		"jquery": "1.12.0",
-		"vue": "2.5.0"
+      "jquery": "1.12.0",
+      "vue": "2.5.0"
 	  },
 	
 	  /* 开发/打包时依赖 */
 	  "devDependencies": {
-		"webpack": "4.12.1"
-		"babel": "7.0.0"
+      "webpack": "4.12.1"
+      "babel": "7.0.0"
 	  }
 	}
 
 ## 需要下载的包及作用
 	webpack: 提供打包功能的包
 	webpack-cli: 提供webpack命令的包
-    html-webpack-plugin: 打包处理HTML(就是将打包生成的js/css在html中自动引入)
+  html-webpack-plugin: 打包处理HTML(就是将打包生成的js/css在html中自动引入)
 	webpack-dev-server: 
 			webpack开发服务: 只在内存中打包项目生成内存中的打包文件, 并启动服务器运行
-		    实现live-reload: 一旦改变了项目源码, 它就会自动重新编译打包, 并刷新浏览器
+      实现live-reload: 一旦改变了项目源码, 它就会自动重新编译打包, 并刷新浏览器
 	babel-loader: 让webpack理解babel需要的对应的loader
 	babel/core: babel编译ES6语法的核心包
 	babel/preset-env: 包含多个解析特定ES6语法的babel插件的集合(大)包
