@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="components-demo">
+    <!-- 自定义标签: 组件标签 -->
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+
+    <hr>
+
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+    <counter-button></counter-button>
+
+
+  </div>
+  
+  <script src="./vue.js"></script>
+
+  <script>
+    /* 
+    组件中的data配置必须是一个返回对象数据的函数, 而不能直接是对象?
+
+    组件与标签的关系?
+    */
+
+    // 定义一个组件(函数)
+    const ComponentFun = Vue.extend({   // VueComponent
+      data () {
+        return {
+          count: 2
+        }
+      },
+      template: '<button @click="++count">2222点击了{{count}}次</button>'
+    })
+    // 注册组件
+    Vue.component('counter-button2', ComponentFun)
+
+    console.log(ComponentFun)
+
+    // 定义一个全局组件, 并指定组件名为: counter-button
+    // 内部会调用Vue.extend()来生成组件函数
+    Vue.component('counter-button', { // 组件的配置对象, vue的配置都可以
+      data() { 
+        return { // 组件内部的data数据
+          count: 1
+        }
+      },
+
+      /* data: { // error The "data" option should be a function
+        count: 1
+      }, */
+
+      template: '<button @click="++count">点击了{{count}}次</button>'  // 模板字符串
+
+    })
+
+    new Vue({
+      el: '#components-demo'
+    })
+
+  </script>
+
+</body>
+</html>

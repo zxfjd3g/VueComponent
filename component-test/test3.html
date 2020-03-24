@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="blog-post-demo">
+    <!-- 
+      组件标签的属性会传递给组件对象内部
+      组件标签的属性会成为组件对象的属性
+    -->
+    <blog-post title="我的 Vue 旅程"></blog-post>
+    <blog-post title="用 Vue 写博客"></blog-post>
+    <blog-post title="Vue 如此有趣"></blog-post>
+
+    <hr>
+
+    <blog-post v-for="(post, index) in posts" :key="post.id" :title="post.title"></blog-post>
+  </div>
+  
+  <script src="./vue.js"></script>
+
+  <script>
+    // 定义并注册一个blog文章的组件
+    Vue.component('blog-post', {
+      /* 
+      声明接收哪些属性: 属性名
+      一旦组件标签指定了属性, 这个属性就会自动成功组件对象的属性
+      */
+      props: ['title'], // 组件接收外部的数据
+      data() { 
+        return { // 组件内部自身的可变数据
+          
+        }
+      },
+      template: '<h3>{{ title }}</h3>'  // 组件内部的模板读取的是组件对象的属性
+    })
+    // 组件对象功能类似于vm对象
+
+    
+    new Vue({
+      el: '#blog-post-demo',
+      data: {
+        posts: [// 文章的列表数据
+          { id: 1, title: '我的 Vue 旅程' },
+          { id: 2, title: '用 Vue 写博客' },
+          { id: 3, title: 'Vue 如此有趣' }
+        ]
+      }
+    })
+
+  </script>
+
+</body>
+</html>
