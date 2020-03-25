@@ -4,6 +4,7 @@ __dirname: 代表当前文件所在目录的绝对路径
 */
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 /* 
 用于得到指定目录的绝对路径
@@ -33,6 +34,12 @@ module.exports = {
   // 模块打包器
   module: {
     rules: [
+      // 处理vue文件
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+
       // ES6 ==> ES5
       {
         test: /\.js$/,  // 通过正则指定匹配处理的文件  处理所有的js文件
@@ -53,7 +60,8 @@ module.exports = {
       {
         test: /\.css$/, // 处理css文件
          // styleLoader(cssLoader(css文件)) css文件内容 ==css-loader==> js中 ==style-loader==> html的<style>中
-        use: ['style-loader', 'css-loader'] 
+        // vue-style-loader是对style-loader的增强
+        use: ['vue-style-loader', 'css-loader'] 
       },
 
       // 图片
@@ -80,7 +88,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'public/index.html', // 从执行命令所在目录查找
       filename: 'index.html' // 指定打包生成的页面  注意: 生成在output.path指定的目录下
-    })
+    }),
+
+    // 请确保引入这个插件！
+    new VueLoaderPlugin()
   ],
 
   // webpack开发服务器配置
@@ -92,4 +103,17 @@ module.exports = {
 
   // 开启source-map调试: 当运行出错时, 能知道是哪个源文件的哪一行出的错
   devtool: 'cheap-module-eval-source-map',
+
+  // 如何解析模块
+  resolve: {
+    // 指定哪些模块的扩展名可以省略
+    extensions: ['.js', '.vue'],
+
+    // 指定模块路径别名
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',  // form 'vue'时查找带编译器的版本
+      '@': resolve('src'), // 别名@对应src的绝对路径
+      '@components': resolve('src/components'),
+    }
+  }
 }

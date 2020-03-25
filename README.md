@@ -42,10 +42,10 @@
 ## 需要下载的包及作用
 	webpack: 提供打包功能的包
 	webpack-cli: 提供webpack命令的包
-  html-webpack-plugin: 打包处理HTML(就是将打包生成的js/css在html中自动引入)
+	html-webpack-plugin: 打包处理HTML(就是将打包生成的js/css在html中自动引入)
 	webpack-dev-server: 
-			webpack开发服务: 只在内存中打包项目生成内存中的打包文件, 并启动服务器运行
-      实现live-reload: 一旦改变了项目源码, 它就会自动重新编译打包, 并刷新浏览器
+	  webpack开发服务: 只在内存中打包项目生成内存中的打包文件, 并启动服务器运行
+    实现live-reload: 一旦改变了项目源码, 它就会自动重新编译打包, 并刷新浏览器
 	babel-loader: 让webpack理解babel需要的对应的loader
 	babel/core: babel编译ES6语法的核心包
 	babel/preset-env: 包含多个解析特定ES6语法的babel插件的集合(大)包
@@ -53,6 +53,10 @@
 	style-loader: 将js中的css代码处理到页面的<style>中
 	file-loader@4.3.0: 能打包图片/字体文件/音频文件/视频文件
 	url-loader@2.3.0: 可以对小于指定的图片进行base64处理(图片转换为字符串, 显示时还是显示为图片==> 减少http请求)
+	vue-loader: 处理打包vue文件的loader
+	vue-template-compiler: 专门编译vue组件的template字符串的编译器
+	vue: 提供响应式处理的vue核心包
+
 
 ## babel的预设(preset)包与bebel的插件(plugin)包
 	a.babel本身不编译ES6的语法
@@ -60,3 +64,4 @@
 	c.每个语法都一个对应的babel plugin来编译对应的语法
 	d.一个babel preset包是包含多个常用的babel plugin的集合包
 	e.好处: 便于管理, 简化配置
+
