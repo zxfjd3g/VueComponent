@@ -5,6 +5,7 @@ __dirname: 代表当前文件所在目录的绝对路径
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 /* 
 用于得到指定目录的绝对路径
@@ -90,8 +91,19 @@ module.exports = {
       filename: 'index.html' // 指定打包生成的页面  注意: 生成在output.path指定的目录下
     }),
 
-    // 请确保引入这个插件！
-    new VueLoaderPlugin()
+    // 请确保引入这个插件
+    new VueLoaderPlugin(),
+
+    // 将public下的所有全局资源拷贝到dist下(public下index.html除外的所有文件)！
+    new CopyWebpackPlugin([
+      { 
+        // from: 'source', 
+        // to: 'dest'
+        from: resolve('public'), // 指定public的绝对路径 ==> 拷贝它下面所有层次目录和文件
+        to: resolve('dist'), // 指定dist的绝对路径, 复制到dist文件下
+        ignore: ['index.html'], // 忽略public下的index.html文件(不拷贝)
+      },
+    ]),
   ],
 
   // webpack开发服务器配置

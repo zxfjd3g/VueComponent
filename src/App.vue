@@ -1,38 +1,70 @@
 <template>
-  <!-- vue组件的模板只能有一个根标签 -->
   <div>
-    <h2>{{title}}</h2>
-    <img class="logo" src="./assets/imgs/logo.png" alt="logo">
-    <hr>
-    <!-- 使用局部组件标签 -->
-    <HelloWorld />
-    <hello-world />
-    <!-- 使用全局组件标签 -->
-    <HelloWorld2 />
-    <HelloWorld2 />
+    <header class="site-header jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1>请发表对Vue的评论</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <!-- <Add /> -->
+      <!-- <add /> -->
+      <!-- 向组件标签传函数属性(属性值为函数) -->
+      <CommentAdd :addComment="addComment"/>  
+      <!-- <comment-add /> -->
+      <!-- 通过强制数据绑定向组件内部传递动态的标签属性 -->
+      <List :MyComments="comments" :deleteComment="deleteComment"/>
+      <!-- <List :my-comments="comments" /> -->
+    </div>
   </div>
 </template>
 
-<script>
-  // 引入组件
-  import HelloWorld from './components/HelloWorld'
-  /* 向外默认暴露一个配置对象 */
+<script type="text/ecmascript-6">
+  import Add from './components/Add'
+  import List from './components/List'
   export default {
+
     data () {
       return {
-        title: 'App组件标题'
+        comments: [
+          {id: 1, username: 'A', content: 'Vue还不错'},
+          {id: 2, username: 'B', content: 'Vue挺好用'},
+          {id: 4, username: 'C', content: 'Vue好像有点难'},
+          {id: 5, username: 'D', content: 'Vue好像有点难22'},
+        ]
       }
     },
-    // 注册组件(局部注册, 只在当前组件内可用)
-    components: { // 可以注册多个
-      HelloWorld // 指定组件标签名为HelloWorld, 写标签名可以大写也可以小写
+
+    methods: {
+      /* 
+      添加评论
+      */
+      addComment (comment) {
+        this.comments.unshift(comment) // 将传入的评论对象添加到数组的最前面显示
+      },
+
+      /* 
+      删除指定下标的评论
+      */
+      deleteComment (index) {
+        this.comments.splice(index, 1)
+      }
+
+
+    },
+
+    components: {
+      // Add,
+      CommentAdd: Add,
+      List,
     }
   }
 </script>
 
-<style>
-  .logo {
-    width: 300px;
-    height: 300px;
-  }
+<style scoped>
+
+ 
 </style>
