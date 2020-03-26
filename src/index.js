@@ -15,7 +15,7 @@ Vue.component('HelloWorld2', HelloWorld)
 // 全局配置, 指定不输出prodution的提示
 Vue.config.productionTip = false
 
-/* 
+
 new Vue({
   el: '#root',
   render: h => h(App), //内部会创建一个App组件对象并渲染到el对应的元素上   后面专门讲
@@ -24,15 +24,15 @@ new Vue({
   // }
 }) 
 
-*/
 
-new Vue({
+
+/* new Vue({
   el: '#root',
   components: {
     App   // 对象App进行局部注册  ==> 标签名是App
   },
   template: '<App/>' // 内部会将App组件对象渲染el对应的页面上
-})
+}) */
 
 /* 
 直接在vm上使用components和template配置会报错:

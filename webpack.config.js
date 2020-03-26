@@ -71,7 +71,7 @@ module.exports = {
           {
             loader: 'url-loader',  // 必须同时下载file-loader, 内部它需要file-loader
             options: {
-              limit: 1024 * 8, // 小于这个值的图片就会进行base64处理
+              limit: 1024 * 42, // 小于这个值的图片就会进行base64处理
               /* 
               [name]: 图片文件名
               [ext]: 文件的扩展名
@@ -111,7 +111,7 @@ module.exports = {
 
     // 指定模块路径别名
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',  // form 'vue'时查找带编译器的版本
+      // 'vue$': 'vue/dist/vue.esm.js',  // form 'vue'时查找带编译器的版本
       '@': resolve('src'), // 别名@对应src的绝对路径
       '@components': resolve('src/components'),
     }
