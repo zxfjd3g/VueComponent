@@ -5,6 +5,7 @@
     </div>
     <p class="user"><span>{{comment.username}}</span><span>说:</span></p>
     <p class="centence">{{comment.content}}</p>
+    <p class="centence">{{sex}}</p>
   </li>
 </template>
 
@@ -14,7 +15,12 @@
     props: { // 指定接收属性的属性名和属性值的类型
       comment: Object, 
       deleteComment: Function,
-      index: Number
+      index: Number,
+      sex: { // 指定属性的属性名/属性值的类型 / 默认属性值 / 是否必须的
+        type: Number,
+        default: 1, // 一般在不是必须时使用
+        required: true,  // 即使指定default值, 也必须传递标签属性
+      }
     },
 
     methods: {
