@@ -10,13 +10,14 @@
       </div>
     </header>
     <div class="container">
-      <!-- <Add /> -->
-      <!-- <add /> -->
+      <!-- <Add :addComment="addComment"/> -->
+      <!-- <add :addComment="addComment"/> -->
+      <comment-add :addComment="addComment"/>
       <!-- 向组件标签传函数属性(属性值为函数) -->
-      <CommentAdd :addComment="addComment"/>  
-      <!-- <comment-add /> -->
+      <!-- <CommentAdd :addComment="addComment"/>   -->
+      
       <!-- 通过强制数据绑定向组件内部传递动态的标签属性 -->
-      <List :MyComments="comments" :deleteComment="deleteComment"/>
+      <List :my-comments="comments" :deleteComment="deleteComment"/>
       <!-- <List :my-comments="comments" /> -->
     </div>
   </div>
@@ -58,7 +59,9 @@
 
     components: {
       // Add,
-      CommentAdd: Add,
+      // add: Add,
+      // CommentAdd: Add,
+      commentAdd: Add,
       List,
     }
   }

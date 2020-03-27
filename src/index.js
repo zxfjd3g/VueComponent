@@ -2,7 +2,9 @@ import Vue from 'vue'
 // import App from './App.vue'
 import App from '@/App'
 
-console.log('App', App) 
+// console.log('App', App) 
+
+Vue.config.productionTip = false
 
 new Vue({
   // el: '#root',
