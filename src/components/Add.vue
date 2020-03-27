@@ -41,7 +41,7 @@
         const content = this.content.trim()
 
         // 如果没有输入内容或输入的是空格, 直接结束, 不添加
-        if (!username && content==='') {
+        if (!username || content==='') {
           return
         }
 
