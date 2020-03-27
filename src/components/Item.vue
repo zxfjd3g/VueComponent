@@ -1,34 +1,44 @@
 <template>
-  <li class="list-group-item">
-    <div class="handle">
-      <a href="javascript:;" @click="deleteItem">删除</a>
-    </div>
-    <p class="user"><span>{{comment.username}}</span><span>说:</span></p>
-    <p class="centence">{{comment.content}}</p>
-    <p class="centence">{{sex}}</p>
+  <li :style="{background: bgColor}" @mouseenter="handleEnter(true)" 
+    @mouseleave="handleEnter(false)">
+    <label>
+      <input type="checkbox" v-model="todo.completed"/>
+      <span>{{todo.title}}</span>
+    </label>
+    <button class="btn btn-danger" v-show="isShow" @click="deleteItem">删除</button>
   </li>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
-    // 声明接收属性
-    props: { // 指定接收属性的属性名和属性值的类型
-      comment: Object, 
-      deleteComment: Function,
-      index: Number,
-      sex: { // 指定属性的属性名/属性值的类型 / 默认属性值 / 是否必须的
-        type: Number,
-        default: 1, // 一般在不是必须时使用
-        required: true,  // 即使指定default值, 也必须传递标签属性
+    props: {
+      todo: Object,
+      deleteTodo: Function,
+      index: Number
+    },
+    
+    data () {
+      return {
+        bgColor: 'white',
+        isShow: false
       }
     },
 
     methods: {
+      handleEnter (isEnter) {
+        if (isEnter) { // 进入
+          this.bgColor = '#ccc'
+          this.isShow = true
+        } else { // 离开
+          this.bgColor = '#fff'
+          this.isShow = false
+        }
+      },
+
       deleteItem () {
-        // 提示确定框, 点击确定后进入
-        if (window.confirm('你确定删除此评论吗?')) {
-          // 删除评论
-          this.deleteComment(this.index)
+        const {title} = this.todo
+        if (window.confirm(`确定删除${title}吗?`)) {
+          this.deleteTodo(this.index)
         }
       }
     }
@@ -36,31 +46,62 @@
 </script>
 
 <style scoped>
-  li {
-    transition: .5s;
-    overflow: hidden;
-  }
+li {
+  list-style: none;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 5px;
+  border-bottom: 1px solid #ddd;
+}
 
-  .handle {
-    width: 40px;
-    border: 1px solid #ccc;
-    background: #fff;
-    position: absolute;
-    right: 10px;
-    top: 1px;
-    text-align: center;
-  }
+li label {
+  float: left;
+  cursor: pointer;
+}
 
-  .handle a {
-    display: block;
-    text-decoration: none;
-  }
+li label li input {
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
 
-  .list-group-item .centence {
-    padding: 0px 50px;
-  }
+li button {
+  float: right;
+  margin-top: 3px;
+}
 
-  .user {
-    font-size: 22px;
-  }
+li:before {
+  content: initial;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+/*footer*/
+.todo-footer {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 6px;
+  margin-top: 5px;
+}
+
+.todo-footer label {
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.todo-footer label input {
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.todo-footer button {
+  float: right;
+  margin-top: 5px;
+}
 </style>

@@ -1,33 +1,38 @@
 <template>
-  <div class="col-md-8">
-    <h3 class="reply">评论回复：</h3>
-    <h2 v-show="MyComments.length===0">暂无评论，点击左侧添加评论！！！</h2>
-    <ul class="list-group">
-      <Item v-for="(comment, index) in MyComments" :key="comment.id" :comment="comment" :deleteComment="deleteComment" :index="index" :sex="1"
-      />
-    </ul>
-  </div>
+  <ul class="todo-main">
+    <Item v-for="(todo, index) in todos" :key="todo.id" :todo="todo" 
+      :deleteTodo="deleteTodo" :index="index"/>
+  </ul>
 </template>
 
 <script type="text/ecmascript-6">
   import Item from './Item'
   export default {
-    // 组件内部要想得到传递的标签属性, 必须声明接收
-    // 接收的所有标签属性都会自动成为组件对象的属性
-    props: ['MyComments', 'deleteComment'], // 指定接收属性的属性名
-    /* props: {
-      MyComments: Array,  // 指定接收属性的属性名和属性值类型
-      deleteComment: Function
-    }, */
+    props: {
+      todos: Array,
+      deleteTodo: Function
+    },
 
-    components: {
-      Item: Item
+    components: { // 局部注册, 只能在当前组件中使用
+      Item
     }
   }
 </script>
 
 <style scoped>
-  .reply {
-    margin-top: 0px;
-  }
+.todo-main {
+  margin-left: 0px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 0px;
+}
+
+.todo-empty {
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding-left: 5px;
+  margin-top: 10px;
+}
 </style>

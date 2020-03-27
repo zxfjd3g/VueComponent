@@ -1,16 +1,20 @@
 import Vue from 'vue'
-// import App from './App.vue'
 import App from '@/App'
+import Header from '@components/Header'
+import List from '@components/List'
+import Footer from '@components/Footer'
 
-// console.log('App', App) 
+// 在 入口js中引入的样式对所有组件界面都有效
+import './base.css'  // 引入多个组件都可能需要的样式
 
+//不在console中输出production的提示
 Vue.config.productionTip = false
 
+// 注册全局组件
+Vue.component('Header', Header)
+Vue.component('List', List)
+Vue.component('Footer', Footer)
+
 new Vue({
-  // el: '#root',
-  /* 
-  根据引入的App组件配置生成一个组件函数 => 注册组件(指定组件标签名) ==> 创建组件的实例对象返回 
-    ==> 最终将App组件对象的界面渲染到el对应的页面元素上
-  */
   render: h => h(App)
 }).$mount('#root')
