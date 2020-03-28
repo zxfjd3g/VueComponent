@@ -19,6 +19,13 @@
       MyComments: Array,  // 指定接收属性的属性名和属性值类型
       deleteComment: Function
     }, */
+    /* props: { 
+      MyComments: { // 指定接收属性的属性名/属性值的类型/是否是必须/默认
+        type: Array,
+        required: true,
+        default: []
+      }
+    }, */
 
     components: {
       Item: Item

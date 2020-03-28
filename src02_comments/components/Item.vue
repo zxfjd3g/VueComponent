@@ -6,6 +6,7 @@
     <p class="user"><span>{{comment.username}}</span><span>说:</span></p>
     <p class="centence">{{comment.content}}</p>
     <p class="centence">{{sex}}</p>
+    <!-- <input type="text"> -->
   </li>
 </template>
 
