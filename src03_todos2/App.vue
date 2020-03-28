@@ -10,7 +10,7 @@
        -->
       <!-- <Header @addTodo="addTodo"/>  -->
       <Header ref="header"/> 
-      <list :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
+      <list :todos="todos" :updateTodo="updateTodo"/>
       <Footer :todos="todos" :deleteCompletedTodos="deleteCompletedTodos" :selectAll="selectAll"/>
       
     </div>
@@ -40,7 +40,7 @@
       console.log('vm对象', this.$root)
       console.log(this.__proto__.__proto__===this.$root.__proto__)  // 组件对象的爷爷就是vm对象的爸爸
       const ComponentFn = Vue.extend({})
-      debugger
+      // debugger
 
       /* 
       const obj = {m: 1}
@@ -91,6 +91,12 @@
       }) */
       this.$refs.header.$once('addTodo', this.addTodo) // 可以, 代码可简洁
       // 原因: methods中所有方法的this都已经通过bind强制指定了函数中的this为当前组件对象
+
+      // 通过全局事件总线绑定事件监听
+      this.$globalEventBus.$on('deleteTodo', this.deleteTodo)
+      this.$globalEventBus.$on('deleteTodo', () => {  // 同一个事件名上绑定多个回调函数, 分发时都会调用
+        console.log('deleteTodo calback()')
+      })
 
     },
 

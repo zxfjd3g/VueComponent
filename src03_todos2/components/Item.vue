@@ -13,7 +13,6 @@
   export default {
     props: {
       todo: Object,
-      deleteTodo: Function,
       index: Number,
       updateTodo: Function
     },
@@ -53,9 +52,11 @@
       deleteItem () {
         const {title} = this.todo
         if (window.confirm(`确定删除${title}吗?`)) {
-          this.deleteTodo(this.index)
+          // this.deleteTodo(this.index)
+          // 利用全局事件总线分发事件
+          this.$globalEventBus.$emit('deleteTodo', this.index)
         }
-      }
+      },
     }
   }
 </script>
