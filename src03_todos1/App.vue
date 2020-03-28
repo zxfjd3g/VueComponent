@@ -2,14 +2,7 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <!-- <header />  -->  <!-- 组件标签写成小写时, 一定不能与html的标签名重名 -->
-      <!--
-        在父组件中给子组件标签对象绑定自定义事件监听
-        给Header组件标签对象(也就是组件对象)绑定自定义事件监听
-        事件名: addTodo
-        回调函数: addTodo(todo)
-       -->
-      <!-- <Header @addTodo="addTodo"/>  -->
-      <Header ref="header"/> 
+      <Header :add-todo="addTodo"/> 
       <list :todos="todos" :deleteTodo="deleteTodo" :updateTodo="updateTodo"/>
       <Footer :todos="todos" :deleteCompletedTodos="deleteCompletedTodos" :selectAll="selectAll"/>
       
@@ -29,45 +22,11 @@
       }
     },
 
-    /* 
-    在此执行异步操作: 绑定自定义事件监听/启动定时器/发ajax请求
-    */
-    // beforeMount () {
-    mounted () {
-      // 给App组件对象绑定了addTodo事件监听  ==> 没有效果
-      /* this.$on('addTodo', function (todo) {
-        console.log('----')
-        this.addTodo(todo)
-      }) */
-
-      // 必须给Heder组件标签对象绑定addTodo事件监听
-      /* this.$refs.header.$on('addTodo', function (todo) { // 有问题, this是Header组件对象
-        console.log('++++', this)
-        this.addTodo(todo)
-      }) */
-      /* this.$refs.header.$on('addTodo', (todo) => { // 没有问题, this用的是mounted()的this
-        console.log('++++', this)
-        this.addTodo(todo)
-      }) */
-      this.$refs.header.$once('addTodo', this.addTodo) // 可以, 代码可简洁
-      // 原因: methods中所有方法的this都已经通过bind强制指定了函数中的this为当前组件对象
-
-    },
-
-    /* 
-    在组件对象死亡前执行
-    */
-    beforeDestroy () {
-      // 解绑指定组件对象上的指定名称的自定义事件监听
-      this.$refs.header.$off('addTodo')
-    },
-
-    methods: { 
+    methods: {
       /* 
       向todos第一位添加todo
       */
       addTodo (todo) {
-        console.log('addTodo()', this)
         this.todos.unshift(todo)
       },
 

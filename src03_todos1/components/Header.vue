@@ -8,7 +8,7 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      // addTodo: Function
+      addTodo: Function
     },
 
     data () {
@@ -34,11 +34,7 @@
           completed: false
         }
         // 调用addTodo添加一个todo显示
-        // this.addTodo(todo)
-        // 触发/分发一个自定义事件: addTodo
-        this.$emit('addTodo', todo)
-
-
+        this.addTodo(todo)
         // 清除输入
         this.title = ''
       }

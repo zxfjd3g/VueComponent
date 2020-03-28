@@ -9,5 +9,34 @@
 </head>
 <body>
   <div id="root"></div>
+
+  <hr>
+  <button id="test">测试DOM事件</button>
+
+  <script>
+    const btn = document.getElementById('test')
+    btn.onclick = function (event) {
+      console.log(event)
+      alert(this.innerHTML)
+    }
+
+    /* 
+    理解原生DOM事件
+      1. 绑定事件监听(需要我们手动编码)
+        事件名/类型: 事件的标识名称(有限的几个)
+        回调函数: 处理事件, 具体做什么得看初值功能(回调函数的数据参数是event对象)
+      2. 分发(dispatch)/触发(emit)事件(浏览器自动处理, 我们只需要操作界面)
+        事件名: 用于与事件监听中的事件名进行匹配
+        数据: 相关信息数据(event对象), 数据对象会自动传递给监听回调函数
+
+    理解自定义事件
+      1. 绑定事件监听(需要我们手动编码)
+        事件名/类型: 事件的标识名称(可以任意)
+        回调函数: 处理事件, 具体做什么得看初值功能(回调函数的数据参数也是由我们指定)
+      2. 分发(dispatch)/触发(emit)事件(浏览器不能自动处理, 我们编写对应的代码)
+        事件名: 用于与事件监听中的事件名进行匹配
+        数据: 如果需要传递数据, 就可以根据需求指定, 自动传递给事件监听回调函数的参数
+    */
+  </script>
 </body>
 </html>
