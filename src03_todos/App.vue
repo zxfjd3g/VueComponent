@@ -18,12 +18,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue'
   export default {
     data () {
       // 读取local中保存的todos, 如果没有null, 此时应该指定为一个[]
       // 读取到todos数据原本是一个json字符串, 需要解析为js
       const todos = JSON.parse(localStorage.getItem('todos_key')) || []
-      console.log('data()', todos)
+      // console.log('data()', todos)
       return {
         todos
       }
@@ -34,6 +35,45 @@
     */
     // beforeMount () {
     mounted () {
+      /* 验证vm与组件对象的关系 */
+      console.log('组件对象', this)
+      console.log('vm对象', this.$root)
+      console.log(this.__proto__.__proto__===this.$root.__proto__)  // 组件对象的爷爷就是vm对象的爸爸
+      const ComponentFn = Vue.extend({})
+      debugger
+
+      /* 
+      const obj = {m: 1}
+      const obj2 = Object.create(obj)  // obj2的原型对象就是obj
+      console.log(obj2, obj) 
+      结论: Object.create(): 用来创建指定对象的子对象
+      */
+
+      /* 
+      结论: 
+          组件函数的原型对象的原型对象是Vue的原型对象
+          组件对象的原型对象的原型对象就是vm的原型对象
+          组件对象的爷爷就是vm对象的爸爸
+
+      Vue.extend = function () {
+        this是Vue, 也就是Super是Vue
+        var Super = this;
+        
+        定义的组件函数, VueComponent/Sub
+        var Sub = function VueComponent (options) {
+          this._init(options);
+        };
+
+        创建Vue原型对象的子对象, 并指定为组件函数的原型对象
+        Sub.prototype = Object.create(Super.prototype);
+
+        返回组件函数
+        return Sub
+      }
+      */
+
+
+
       // 给App组件对象绑定了addTodo事件监听  ==> 没有效果
       /* this.$on('addTodo', function (todo) {
         console.log('----')
