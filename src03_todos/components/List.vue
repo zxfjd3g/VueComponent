@@ -1,7 +1,7 @@
 <template>
   <ul class="todo-main">
     <Item v-for="(todo, index) in todos" :key="todo.id" :todo="todo" 
-      :deleteTodo="deleteTodo" :index="index"/>
+      :deleteTodo="deleteTodo" :index="index" :updateTodo="updateTodo"/>
   </ul>
 </template>
 
@@ -10,7 +10,8 @@
   export default {
     props: {
       todos: Array,
-      deleteTodo: Function
+      deleteTodo: Function,
+      updateTodo: Function
     },
 
     components: { // 局部注册, 只能在当前组件中使用

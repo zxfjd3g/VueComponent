@@ -2,7 +2,7 @@
   <li :style="{background: bgColor}" @mouseenter="handleEnter(true)" 
     @mouseleave="handleEnter(false)">
     <label>
-      <input type="checkbox" v-model="todo.completed"/>
+      <input type="checkbox" v-model="isCheck"/>
       <span>{{todo.title}}</span>
     </label>
     <button class="btn btn-danger" v-show="isShow" @click="deleteItem">删除</button>
@@ -14,13 +14,28 @@
     props: {
       todo: Object,
       deleteTodo: Function,
-      index: Number
+      index: Number,
+      updateTodo: Function
     },
     
     data () {
       return {
         bgColor: 'white',
         isShow: false
+      }
+    },
+
+    computed: {
+      // 是否勾选
+      isCheck: {
+        get () {
+          return this.todo.computed
+        },
+
+        set (value) { // value: 标识当前勾选状态的boolean值
+          // this.todo.computed = value  // 可以有效果, 但不合规范
+          this.updateTodo(this.todo, value)
+        }
       }
     },
 

@@ -14,6 +14,8 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
+const SRC_DIR = 'src03_todos'
+
 module.exports = {
   // 打包模式: 不同打包模式对应不同的内置的默认配置
   // mode: 'production'
@@ -23,7 +25,7 @@ module.exports = {
   // entry: './src/index.js'
   // entry: path.resolve(__dirname, 'src/index.js')
   entry: {
-    xxx: resolve('src/index.js')
+    xxx: resolve(SRC_DIR + '/index.js')
   },
   // 出口
   output: {
@@ -45,7 +47,7 @@ module.exports = {
       {
         test: /\.js$/,  // 通过正则指定匹配处理的文件  处理所有的js文件
         // exclude: /node_modules/, // 排除法: 不对正则匹配的文件夹下所有js文件
-        include: [resolve('src')], // 包含法: 只对指定目录的js进行处理
+        include: [resolve(SRC_DIR)], // 包含法: 只对指定目录的js进行处理
 
         // user: 'babel-loader', // 如果loader没有额外的options
         use: { // 指定loader
@@ -124,8 +126,8 @@ module.exports = {
     // 指定模块路径别名
     alias: {
       // 'vue$': 'vue/dist/vue.esm.js',  // form 'vue'时查找带编译器的版本
-      '@': resolve('src'), // 别名@对应src的绝对路径
-      '@components': resolve('src/components'),
+      '@': resolve(SRC_DIR), // 别名@对应src的绝对路径
+      '@components': resolve(`${SRC_DIR}/components`),
     }
   }
 }

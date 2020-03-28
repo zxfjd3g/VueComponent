@@ -48,6 +48,7 @@
         set (value) {  // 点击全选框, value就是最新的boolean值
           // 更新todos中的所有todo的completed为value
           this.selectAll(value)
+          // this.todos.forEach(todo => todo.completed = isCheck)  // 不合规范
         }
       }
     }
