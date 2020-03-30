@@ -9,9 +9,26 @@
         回调函数: addTodo(todo)
        -->
       <!-- <Header @addTodo="addTodo"/>  -->
-      <Header ref="header"/> 
-      <list :todos="todos" :updateTodo="updateTodo"/>
-      <Footer :todos="todos" :deleteCompletedTodos="deleteCompletedTodos" :selectAll="selectAll"/>
+      <Header ref="header" /> 
+      <list :todos="todos" />
+      <Footer>
+        <template slot="left">
+          <input type="checkbox" v-model="isCheckAll"/>
+        </template>
+
+        <button 
+          class="btn btn-danger" 
+          v-show="completedSize>0" 
+          @click="deleteCompletedTodos"
+          slot="right"
+        >
+          清除已完成任务
+        </button>
+
+        <span>
+          <span>已完成{{completedSize}}</span> / 全部{{todos.length}}
+        </span>
+      </Footer>
       
     </div>
   </div>
@@ -19,6 +36,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
+  // import PubSub from 'pubsub-js'
   export default {
     data () {
       // 读取local中保存的todos, 如果没有null, 此时应该指定为一个[]
@@ -98,6 +116,14 @@
         console.log('deleteTodo calback()')
       })
 
+      // 订阅消息, 返回消息的标识token
+      /* 
+      PubSub.subscribe('updateTodo', (msgName, data) => {
+        this.updateTodo(data.todo, data.completed)
+      }) */
+      this.token = this.$PubSub.subscribe('updateTodo', (msgName, {todo, completed}) => {
+        this.updateTodo(todo, completed)
+      })
     },
 
     /* 
@@ -106,6 +132,39 @@
     beforeDestroy () {
       // 解绑指定组件对象上的指定名称的自定义事件监听
       this.$refs.header.$off('addTodo')
+
+      // 取消消息订阅
+      this.$PubSub.unsubscribe(this.token) // 取消一个
+      // this.$PubSub.unsubscribe('updateTodo') // 取消n个同消息名的订阅监视
+    },
+
+    computed: {
+      /* 
+      根据todos来计算已完成的todo的数量
+      */
+      completedSize () { // 当读取属性值时自动调用返回属性值
+        let size = 0
+        // 遍历todos, 判断如果已完成, 统计的size加1
+        this.todos.forEach(todo => {
+          if (todo.completed) {
+            size++
+          }
+        })
+        return size
+      },
+
+      /* 判断是否需要勾选全选框 */
+      isCheckAll: {
+        get  () {
+          return this.todos.length===this.completedSize && this.completedSize>0
+        },
+
+        set (value) {  // 点击全选框, value就是最新的boolean值
+          // 更新todos中的所有todo的completed为value
+          this.selectAll(value)
+          // this.todos.forEach(todo => todo.completed = isCheck)  // 不合规范
+        }
+      }
     },
 
     methods: { 

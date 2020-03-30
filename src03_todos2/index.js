@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from '@/App'
+import PubSub from 'pubsub-js'
 import Header from '@components/Header'
 import List from '@components/List'
 import Footer from '@components/Footer'
@@ -9,6 +10,9 @@ import './base.css'  // 引入多个组件都可能需要的样式
 
 //不在console中输出production的提示
 Vue.config.productionTip = false
+
+// 将PubSub挂到Vue的原型对象上, 这样所有的组件都可见
+Vue.prototype.$PubSub = PubSub 
 
 // 注册全局组件
 Vue.component('Header', Header)

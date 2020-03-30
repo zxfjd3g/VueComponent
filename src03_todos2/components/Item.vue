@@ -10,11 +10,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // import PubSub from 'pubsub-js'
   export default {
     props: {
       todo: Object,
       index: Number,
-      updateTodo: Function
     },
     
     data () {
@@ -28,12 +28,14 @@
       // 是否勾选
       isCheck: {
         get () {
-          return this.todo.computed
+          return this.todo.completed
         },
 
         set (value) { // value: 标识当前勾选状态的boolean值
-          // this.todo.computed = value  // 可以有效果, 但不合规范
-          this.updateTodo(this.todo, value)
+          // this.todo.completed = value  // 可以有效果, 但不合规范
+          // this.updateTodo(this.todo, value)
+          // 发发布消息
+          this.$PubSub.publish('updateTodo', {todo: this.todo, completed: value})
         }
       }
     },
