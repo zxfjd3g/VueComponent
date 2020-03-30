@@ -31,11 +31,17 @@
       </Footer>
       
     </div>
+
+    <hr>
+
+    <ScopedSlot />
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
+  import ScopedSlot from './components/scoped-slot'
   // import PubSub from 'pubsub-js'
   export default {
     data () {
@@ -231,6 +237,10 @@
           window.localStorage.setItem('todos_key', JSON.stringify(value)) 
         },
       }
+    },
+
+    components: {
+      ScopedSlot
     }
   }
 </script>
