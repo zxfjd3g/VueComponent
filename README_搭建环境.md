@@ -1,6 +1,6 @@
 ## 1. 初始化项目
     1). 生成package.json
-        yarn init -y
+        npm init -y
     
     2). 创建入口js: src/index.js
         console.log('Hello Webpack!')
@@ -52,7 +52,7 @@
     
     3). 生成环境打包并运行
         配置打包命令:  "build": "webpack --mode production"
-        打包项目: yarn build
+        打包项目: npm run build
         运行打包项目: serve dist  (第一次全局下载serve: npm install -g serve)
 
 ## 3. 开发环境运行
@@ -195,34 +195,28 @@
 
 ## 7. 配置async/await的编译环境
     1). 下载包
-        yarn add @babel/polyfill
+        npm install @babel/polyfill
     2). 配置
         entry: {
           xxx: ['@babel/polyfill', resolve('src/index.js')]
         },
 
-## 8. 解决mint-ui按需引入配置异常的问题
-    1). 文档上的配置
-        "plugins": [
-          ["component", [
+## 8. 解决引入Element-UI无法打包font文件的问题  
+    1). 原因:
+        没有配置url-loader处理font类型文件
+    2). 在webpack.config.js中配置:
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/, // 字体
+          use: [
             {
-              "libraryName": "mint-ui",
-              "style": true
+              loader: 'url-loader',
+              options: {
+                limit: 10240,
+                name: 'fonts/[name].[hash:8].[ext]'
+              }
             }
-          ]]
-        ]
-    2). 异常信息:  
-        Error: .plugins[0][1] must be an object, false, or undefined
-    3). 原因:
-        文档编写时, 是根据老的babel版本编写的, 新版本的babel配置有变化
-        以前是数组, 现在只能是对象
-    4). 修正:
-        "plugins": [
-          ["component", {
-              "libraryName": "mint-ui",
-              "style": true
-          }]
-        ]
+          ]
+        },
 
 ## 9. 解决history模式路由请求404的问题
     devServer: historyApiFallback: true, // 任意的 404 响应都被替代为 index.html

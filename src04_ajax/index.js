@@ -1,3 +1,4 @@
+// import '@babel/polyfill'  // 一上来先加载这个包  => 处理async/await
 import Vue from 'vue'
 import App from '@/App'
 import VueResource from 'vue-resource'
@@ -15,3 +16,4 @@ new Vue({
 
   render: h => h(App)
 }).$mount('#root')
+

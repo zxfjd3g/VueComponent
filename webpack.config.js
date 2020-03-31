@@ -25,7 +25,7 @@ module.exports = {
   // entry: './src/index.js'
   // entry: path.resolve(__dirname, 'src/index.js')
   entry: {
-    xxx: resolve(SRC_DIR + '/index.js')
+    xxx: ['@babel/polyfill', resolve(SRC_DIR + '/index.js')]
   },
   // 出口
   output: {
@@ -113,6 +113,18 @@ module.exports = {
     open: true, // 自动打开浏览器
     port: 8080, // 指定启动服务器的端口号
     stats: 'errors-only', // 只输出错误日志
+    proxy: {
+      // 处理以/api开头路径的请求
+      // '/api': 'http://localhost:4000'
+      // http://localhost:4000/api/search/users   
+      '/api': {
+        target: 'http://localhost:4000', // 转发的目标地址(服务器接口地址)
+        pathRewrite: {
+          '^/api': ''  // 转发请求时去除路径前面的/api     ==> http://localhost:4000/search/users
+        },
+        changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
+      }
+    },
   },
 
   // 开启source-map调试: 当运行出错时, 能知道是哪个源文件的哪一行出的错

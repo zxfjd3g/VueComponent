@@ -5,7 +5,9 @@
     "dev": "webpack-dev-server --mode development"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "axios": "^0.19.2",
+    "express": "^4.17.1",
     "pubsub-js": "^1.8.0",
     "vue": "^2.6.11",
     "vue-resource": "^1.5.1"

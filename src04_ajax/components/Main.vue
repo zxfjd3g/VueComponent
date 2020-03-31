@@ -35,11 +35,19 @@
       this.$bus.$on('search', (searchName) => { // 点击搜索按钮 ==> 分发search事件
         this.getUsers(searchName)
       }) */
-      this.$bus.$on('search', this.getUsers)  // 这种写法一定懂, 比上面的要好(减少了一个箭头函数的定义)
+      this.$bus.$on('search', this.getUsers_async)  // 这种写法一定懂, 比上面的要好(减少了一个箭头函数的定义)
+
+      axios({
+        // url: 'http://localhost:4000/search/users?q=bb'
+        // url: 'http://localhost:8080/api/search/users?q=bb'
+        url: '/api/search/users?q=bb' // 浏览器发出ajax请求一定要是对当前项目的请求
+      }).then(response => {
+        console.log('result', response.data)
+      })
     },
 
     methods: {
-      getUsers (searchName) {
+      getUsers_then (searchName) {
         // 更新界面(请求中)
         this.firstView = false
         this.loading = true
@@ -77,6 +85,47 @@
           this.loading = false
           this.errorMsg = '请求出错: ' + error.message
         })
+      },
+
+      async getUsers_async (searchName) {
+        // 更新界面(请求中)
+        this.firstView = false
+        this.loading = true
+        // 发送异步ajax请求
+        // https://api.github.com/search/users?q=aa
+        const url = 'https://api.github.com/search/users'
+        try {
+          const response = await axios({
+            url,
+            params: {
+              q: searchName
+            }
+          })
+          // 取出请求返回的数据中的users数据
+          let items = response.data.items
+          const users = []
+          items.forEach(item => {
+            users.push({
+              username: item.login,
+              avatar_url: item.avatar_url,
+              url: item.html_url
+            })
+          })
+          /* 
+          如果不理解查看MDN文档作为扩展处理
+          const users = items.map(item => ({
+            username: item.login,
+            avatar_url: item.avatar_url,
+            url: item.html_url
+          })) */
+
+          // 更新数据
+          this.loading = false
+          this.users = users
+        } catch (error) {
+          this.loading = false
+          this.errorMsg = '请求出错: ' + error.message
+        }
       }
     }
   }
