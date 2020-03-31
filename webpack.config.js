@@ -14,7 +14,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
-const SRC_DIR = 'src04_ajax'
+const SRC_DIR = 'src05_vuex_ajax'
 
 module.exports = {
   // 打包模式: 不同打包模式对应不同的内置的默认配置
@@ -121,6 +121,14 @@ module.exports = {
         target: 'http://localhost:4000', // 转发的目标地址(服务器接口地址)
         pathRewrite: {
           '^/api': ''  // 转发请求时去除路径前面的/api     ==> http://localhost:4000/search/users
+        },
+        changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
+      },
+      // 可以配置多个
+      '/gh': {
+        target: 'https://api.github.com', // 转发的目标地址
+        pathRewrite: {
+          '^/gh' : ''  // 转发请求时去除路径前面的/api
         },
         changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
       }
