@@ -3,6 +3,7 @@
 */
 const express = require('express')  // 下载: npm install express -S
 const axios = require('axios')
+const usersSearch = require('./usersSearch.json')
 const app = express()
 
 // 能解析urlencode格式的post请求体参数
@@ -18,14 +19,7 @@ query请求参数: q=xxx
 app.get('/search/users', (req, res) => {
   const q = req.query.q
   setTimeout(() => {
-    res.send({
-      code: 0, // 成功
-      q: q,
-      items: [
-        {id: 1, login: q+'--'},
-        {id: 2, login: q+'++'}
-      ]
-    })
+    res.send(usersSearch)
   }, 1000)
   /* axios.get('https://api.github.com/search/users', {
     params: {q}
