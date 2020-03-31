@@ -14,7 +14,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
-const SRC_DIR = 'src05_vuex_counter'
+const SRC_DIR = 'src05_vuex_ajax'
 
 module.exports = {
   // 打包模式: 不同打包模式对应不同的内置的默认配置
