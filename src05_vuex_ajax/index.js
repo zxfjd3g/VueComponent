@@ -5,11 +5,7 @@ import store from './store'
 
 new Vue({
 
-  // 注册局部组件
-  components: { // 注册组件(后面才能写组件标签)
-    App: App
-  },
-  template: '<App/>',
+  render: h => h(App),
 
   store, // 所有组件都能通过$store看到store对象
 }).$mount('#root')
