@@ -14,7 +14,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
-const SRC_DIR = 'src05_vuex_ajax'
+const SRC_DIR = 'src07_router'
 
 module.exports = {
   // 打包模式: 不同打包模式对应不同的内置的默认配置
@@ -31,7 +31,8 @@ module.exports = {
   output: {
     path: resolve('dist'), // 生成打包文件的基础路径(必须是绝对路径)
     // [name]: 入口js的名称xxx
-    filename: 'js/[name].js'     // 生成的js: dist/js/xxx.js
+    filename: 'js/[name].js',     // 生成的js: dist/js/xxx.js
+    publicPath: '/', // 引入打包的文件时路径以/开头
   },
 
   // 模块打包器
@@ -133,6 +134,7 @@ module.exports = {
         changeOrigin: true, // 支持跨域, 如果协议/主机也不相同, 必须加上
       }
     },
+    historyApiFallback: true, // 任意的 404 响应都被替代为 index.html
   },
 
   // 开启source-map调试: 当运行出错时, 能知道是哪个源文件的哪一行出的错
