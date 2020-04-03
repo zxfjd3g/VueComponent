@@ -14,7 +14,7 @@ function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
 
-const SRC_DIR = 'src07_router'
+const SRC_DIR = 'src08_UI'
 
 module.exports = {
   // 打包模式: 不同打包模式对应不同的内置的默认配置
@@ -55,7 +55,15 @@ module.exports = {
           loader: 'babel-loader', 
           options: {
             presets: ['@babel/preset-env'], // 指定预设包: 包含了需要用的绝大部分babel的插件包
-            plugins: [] // 一旦我们需要一个另外babel插件, 需要在此配置
+            plugins: [
+              [ // 配置babel-plugin-component
+                "component",
+                {
+                  "libraryName": "element-ui", // 针对的是element-ui库的组件
+                  "styleLibraryName": "theme-chalk" // 自动引入组件对应的样式文件
+                }
+              ]
+            ] // 一旦我们需要一个另外babel插件, 需要在此配置
           }
         }
       },
@@ -81,6 +89,20 @@ module.exports = {
               [ext]: 文件的扩展名
               */
               name: 'img/[name].[ext]' // 相对于output.path  dist
+            }
+          }
+        ]
+      },
+
+      // 处理font文件
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/, 
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240,
+              name: 'fonts/[name].[ext]'
             }
           }
         ]
